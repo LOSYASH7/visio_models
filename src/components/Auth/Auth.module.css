@@ -1,0 +1,288 @@
+.auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
+  background-image: 
+    linear-gradient(135deg, #1a1a1a 0%, #242424 100%),
+    linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%) -50px 0,
+    linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%) -50px 0,
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%);
+  background-size: 
+    cover,
+    100px 100px,
+    100px 100px,
+    100px 100px,
+    100px 100px;
+}
+
+.authContainer {
+  max-width: 380px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  background: linear-gradient(45deg, #fff, #646cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.input {
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 1rem;
+  backdrop-filter: blur(15px);
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: rgba(100, 108, 255, 0.6);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.2);
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.forgotLink {
+  color: rgba(100, 108, 255, 0.9);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.forgotLink:hover {
+  color: #646cff;
+  text-decoration: underline;
+}
+
+.submitBtn {
+  background: linear-gradient(45deg, #646cff, #535bf2);
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 15px rgba(100, 108, 255, 0.3);
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(100, 108, 255, 0.5);
+  background: linear-gradient(45deg, #535bf2, #646cff);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.divider span {
+  padding: 0 1rem;
+}
+
+.socialAuth {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.socialBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+  backdrop-filter: blur(15px);
+}
+
+.socialBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.signupLink {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.link {
+  color: #646cff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #535bf2;
+  text-decoration: underline;
+}
+
+/* Для светлой темы */
+@media (prefers-color-scheme: light) {
+  .auth {
+    background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
+    background-image: 
+      linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%),
+      linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%) -50px 0,
+      linear-gradient(-45deg, rgba(0,0,0,0.05) 25%, transparent 25%) -50px 0,
+      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.05) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.05) 75%);
+  }
+  
+  .authContainer {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+  
+  .title {
+    background: linear-gradient(45deg, #1a1a1a, #646cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .subtitle {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .label {
+    color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .input {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a1a1a;
+  }
+  
+  .input:focus {
+    border-color: rgba(100, 108, 255, 0.6);
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .remember {
+    color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .divider {
+    color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .divider::before,
+  .divider::after {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  
+  .socialBtn {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a1a1a;
+  }
+  
+  .socialBtn:hover {
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .signupLink {
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
