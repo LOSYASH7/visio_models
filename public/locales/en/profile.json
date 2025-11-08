@@ -1,0 +1,27 @@
+{
+  "title": "User Profile",
+  "subtitle": "Manage your account",
+  "editProfile": "Edit Profile",
+  "defaultUserName": "User",
+  "accountActive": "Account active",
+  "fullName": "Full Name",
+  "username": "Username",
+  "email": "Email",
+  "company": "Company",
+  "role": "Role",
+  "notSpecified": "Not specified",
+  "notAuthorized": "User not authorized",
+  "saving": "Saving...",
+  "updateFeatureComing": "Profile update feature will be available in the future",
+  "confirmLogout": "Are you sure you want to log out?",
+  "roles": {
+    "candidate": "Candidate",
+    "hr": "HR Specialist",
+    "admin": "Administrator",
+    "user": "User",
+    "notSpecified": "Not specified"
+  },
+  "errors": {
+    "updateError": "Error updating profile"
+  }
+}

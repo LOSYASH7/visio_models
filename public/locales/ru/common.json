@@ -1,0 +1,23 @@
+{
+  "loading": "Загрузка...",
+  "error": "Ошибка",
+  "success": "Успешно",
+  "save": "Сохранить",
+  "cancel": "Отмена",
+  "delete": "Удалить",
+  "edit": "Редактировать",
+  "language": "Язык",
+  "features": "Будущее",
+  "about": "О нас",
+  "contact": "Контакты",
+  "getStarted": "Начать",
+  "profile": "Профиль",
+  "hero": {
+    "subtitle": "Мы создаем инновационные решения для вашего бизнеса",
+    "sectionTitle": "О проекте",
+    "heroTitle": "Что это?"
+  },
+  "heroFuatures": {
+    "videoPlaceholder": "Видео контент"
+  }
+}

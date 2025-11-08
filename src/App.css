@@ -13,7 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Сеточный фон для всего приложения */
+/* Фоновое изображение для всего приложения */
 body {
   margin: 0;
   display: flex;
@@ -21,24 +21,27 @@ body {
   min-width: 320px;
   min-height: 100vh;
   
-  /* Красивый анимированный сеточный фон */
-  background: 
-    linear-gradient(45deg, #1a1a1a 25%, transparent 25%) -50px 0,
-    linear-gradient(-45deg, #1a1a1a 25%, transparent 25%) -50px 0,
-    linear-gradient(45deg, transparent 75%, #1a1a1a 75%),
-    linear-gradient(-45deg, transparent 75%, #1a1a1a 75%);
-  background-size: 100px 100px;
-  background-color: #242424;
-  animation: gridMove 20s linear infinite;
+  /* Фоновое изображение */
+  background-image: url('https://img3.akspic.ru/crops/7/9/9/9/29997/29997-tehnologii-marka-sinij-sinij_cvet-elektrik-1920x1080.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  /* Затемнение фона для лучшей читаемости */
+  position: relative;
 }
 
-@keyframes gridMove {
-  0% {
-    background-position: 0 0, 0 0, 0 0, 0 0;
-  }
-  100% {
-    background-position: 100px 100px, 100px 100px, 100px 100px, 100px 100px;
-  }
+/* Затемнение фона */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Черный с 50% прозрачностью */
+  z-index: -1;
 }
 
 a {
@@ -53,6 +56,7 @@ a:hover {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 button {
@@ -64,10 +68,14 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 button:hover {
   border-color: #646cff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
 }
 button:focus,
 button:focus-visible {
@@ -80,23 +88,30 @@ button:focus-visible {
     background-color: #ffffff;
   }
   
-  /* Сеточный фон для светлой темы */
+  /* Фон для светлой темы */
   body {
-    background: 
-      linear-gradient(45deg, #f0f0f0 25%, transparent 25%) -50px 0,
-      linear-gradient(-45deg, #f0f0f0 25%, transparent 25%) -50px 0,
-      linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
-      linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
-    background-size: 100px 100px;
-    background-color: #ffffff;
-    animation: gridMove 20s linear infinite;
+    background-image: url('https://img3.akspic.ru/crops/7/9/9/9/29997/29997-tehnologii-marka-sinij-sinij_cvet-elektrik-1920x1080.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  /* Более светлое затемнение для светлой темы */
+  body::before {
+    background: rgba(255, 255, 255, 0.3);
   }
   
   a:hover {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: rgba(249, 249, 249, 0.8);
+    color: #213547;
+  }
+  
+  h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -105,21 +120,52 @@ button:focus-visible {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100%;
 }
 
+/* Стили для логотипа с эффектом стекла */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
+  transform: scale(1.05);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Стили для карточек с эффектом стекла */
+.card {
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  border-color: rgba(100, 108, 255, 0.4);
+}
+
+.read-the-docs {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9em;
+}
+
+/* Анимация для логотипа */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -135,10 +181,136 @@ button:focus-visible {
   }
 }
 
-.card {
-  padding: 2em;
+/* Дополнительные стили для улучшения читаемости */
+.container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.read-the-docs {
-  color: #888;
+/* Стили для форм */
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
 }
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+}
+
+/* Стили для навигации */
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid transparent;
+}
+
+.nav-link:hover {
+  color: #646cff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(100, 108, 255, 0.3);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+  
+  #root {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+  }
+  
+  .logo {
+    height: 4em;
+    padding: 1em;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2em;
+  }
+  
+  #root {
+    padding: 0.5rem;
+  }
+  
+  button {
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+  }
+}
+
+/* Специальные стили для светлой темы принудительно */
+@media (prefers-color-scheme: light) {
+  .card {
+    background: rgba(255, 255, 255, 0.8);
+    color: #213547;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group input {
+    background: rgba(255, 255, 255, 0.9);
+    color: #213547;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-group label {
+    color: #213547;
+  }
+  
+  .nav-link {
+    color: #213547;
+  }
+  
+  .nav-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  .read-the-docs {
+    color: rgba(33, 53, 71, 0.7);
+  }
+}
+
+/* Плавные переходы для всех элементов */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+

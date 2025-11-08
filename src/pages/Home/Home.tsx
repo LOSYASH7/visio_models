@@ -1,9 +1,9 @@
-import { Header } from '../../components/Header/Header'
+import { AuthPage } from '../../pages/Auth/AuthPage'
 
 export const Home = () => {
   return (
     <>
-      <Header />
+      <AuthPage />
     </>
   )
 }

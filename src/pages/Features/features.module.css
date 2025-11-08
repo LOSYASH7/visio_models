@@ -1,0 +1,286 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    #667eea 0%, 
+    #764ba2 50%, 
+    #f093fb 100%);
+  border-radius: 32px;
+  max-width: 1180px;
+  margin: 20px auto;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Анимированный фон */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+/* Герой секция */
+.hero {
+  padding: 140px 20px 80px;
+  text-align: center;
+  color: white;
+  position: relative;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+  background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.02em;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)); }
+  to { filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5)); }
+}
+
+.heroSubtitle {
+  font-size: 1.4rem;
+  font-weight: 300;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Секция для видео */
+.videoSection {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, 
+    rgba(102, 126, 234, 0.9) 0%, 
+    rgba(118, 75, 162, 0.9) 50%, 
+    rgba(240, 147, 251, 0.9) 100%);
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.videoContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.videoPlaceholder {
+  width: 100%;
+  height: 560px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.3rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.videoPlaceholder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at center, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.videoPlaceholder:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.videoPlaceholder:hover::before {
+  opacity: 1;
+}
+
+.videoPlaceholder span {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px 24px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Дополнительные элементы дизайна */
+.floatingElement {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: floatElement 8s ease-in-out infinite;
+}
+
+.floatingElement:nth-child(1) {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.floatingElement:nth-child(2) {
+  top: 20%;
+  right: 10%;
+  animation-delay: -2s;
+  width: 150px;
+  height: 150px;
+}
+
+.floatingElement:nth-child(3) {
+  bottom: 30%;
+  left: 15%;
+  animation-delay: -4s;
+}
+
+@keyframes floatElement {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-30px) rotate(180deg); 
+    opacity: 0.3;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .container {
+    margin: 15px;
+    border-radius: 24px;
+  }
+  
+  .statsSection {
+    margin: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 120px 20px 60px;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+  }
+
+  .statsSection {
+    padding: 80px 20px;
+    margin: 20px;
+    border-radius: 20px;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .statItem {
+    padding: 40px 20px;
+  }
+
+  .statNumber {
+    font-size: 3rem;
+  }
+
+  .videoSection {
+    padding: 80px 20px;
+  }
+
+  .videoPlaceholder {
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.2rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .statItem {
+    padding: 35px 20px;
+  }
+
+  .statNumber {
+    font-size: 2.5rem;
+  }
+
+  .videoPlaceholder {
+    height: 300px;
+    font-size: 1.1rem;
+  }
+  
+  .statsSection {
+    margin: 15px;
+    border-radius: 16px;
+  }
+}
+
+/* Плавные переходы */
+.container * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Улучшенная типографика */
+.heroTitle, .statNumber {
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.statLabel, .heroSubtitle {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+}

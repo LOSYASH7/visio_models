@@ -1,0 +1,23 @@
+{
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "language": "Language",
+  "features": "Features",
+  "about": "About",
+  "contact": "Contact",
+  "getStarted": "Get Started",
+  "profile": "Profile",
+  "hero": {
+    "subtitle": "We create innovative solutions for your business",
+    "sectionTitle": "About project",
+    "heroTitle": "What is this?"
+  },
+   "heroFuatures": {
+    "videoPlaceholder": "Video Content"
+  }
+}

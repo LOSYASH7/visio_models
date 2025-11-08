@@ -1,3 +1,4 @@
+/* src/components/Header/Header.module.css */
 .header {
   background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
   backdrop-filter: blur(15px);
@@ -12,8 +13,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   margin: 5px 10px 0 10px;
   width: calc(100% - 20px);
+  opacity: 0.85;
   
-  /* Добавляем сетку как на фоне */
   background-image: 
     linear-gradient(135deg, #1a1a1a 0%, #242424 100%),
     linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%) -50px 0,
@@ -33,27 +34,20 @@
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
-  justify-content: space-between; /* Это оставляем */
+  justify-content: space-between;
   align-items: center;
-  gap: 2rem; /* Добавляем зазор между элементами */
+  gap: 2rem;
+  position: relative;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 700;
-  font-size: 1.8rem;
-  color: blue;
+.logoLink {
   text-decoration: none;
 }
 
-.logoIcon {
-  font-size: 3rem;
-}
-
 .logoText {
-  background: linear-gradient(45deg, #fff, blue);
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #fff, #646cff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -71,56 +65,6 @@
   padding: 0;
 }
 
-/* Иконка авторизации */
-.loginIconBtn {
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(50, 24, 244, 0.3);
-  padding: 0.75rem;
-  border-radius: 30%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 17px;
-  height: 17px;
-  backdrop-filter: blur(10px);
-}
-
-.loginIconBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.loginIcon {
-  width: 32px;
-  height: 32px;
-}
-
-/* Для мобильной версии тоже добавь иконку */
-.mobileLoginIconBtn {
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 1rem;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  margin: 0 auto;
-}
-
-.mobileLoginIcon {
-  width: 28px;
-  height: 28px;
-}
-
 .menuLink {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
@@ -128,7 +72,6 @@
   padding: 0.5rem 1rem;
   border-radius: 8px;
   transition: all 0.3s ease;
-  position: relative;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -142,59 +85,150 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.menuLink::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(45deg, #646cff, #535bf2);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.menuLink:hover::after {
-  width: 80%;
-}
-
-/* Кнопки */
+/* Кнопки действий */
 .actions {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
-.loginBtn {
-  background: transparent;
-  color: white;
+/* Селектор языка */
+.languageSelector {
+  position: relative;
+}
+
+.languageButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 500;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.loginBtn:hover {
+.languageButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.languageFlag {
+  font-size: 1rem;
+}
+
+.languageCode {
+  min-width: 30px;
+}
+
+.languageArrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.languageSelector:hover .languageArrow {
+  transform: rotate(180deg);
+}
+
+.languageDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.5rem;
+  min-width: 140px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+}
+
+.languageOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.languageOption:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.languageOptionActive {
+  background: rgba(100, 108, 255, 0.2);
+  color: white;
+}
+
+.languageName {
+  flex: 1;
+  text-align: left;
+}
+
+.languageCheck {
+  width: 16px;
+  height: 16px;
+}
+
+/* Иконка пользователя */
+.userIconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+}
+
+.userIconBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+.userIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Кнопка Get Started */
 .signupBtn {
   background: linear-gradient(45deg, #646cff, #535bf2);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 30%;
+  border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(100, 108, 255, 0.3);
   backdrop-filter: blur(10px);
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 
 .signupBtn:hover {
@@ -236,27 +270,62 @@
   left: 10px;
   right: 10px;
   background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border-radius: 0 0 25px 25px;
   margin-top: 5px;
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-top: none;
-  
-  /* Сетка для мобильного меню */
-  background-image: 
-    linear-gradient(135deg, #1a1a1a 0%, #242424 100%),
-    linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%) -50px 0,
-    linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%) -50px 0,
-    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%);
-  background-size: 
-    cover,
-    100px 100px,
-    100px 100px,
-    100px 100px,
-    100px 100px;
+}
+
+/* Селектор языка в мобильном меню */
+.mobileLanguageSelector {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileLanguageLabel {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.mobileLanguageButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mobileLanguageBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.mobileLanguageBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobileLanguageBtnActive {
+  background: rgba(100, 108, 255, 0.2);
+  border-color: rgba(100, 108, 255, 0.4);
+  color: white;
+}
+
+.mobileLanguageFlag {
+  font-size: 1rem;
 }
 
 .mobileLink {
@@ -285,31 +354,39 @@
   margin-top: 1rem;
 }
 
-.mobileLoginBtn,
-.mobileSignupBtn {
-  width: 100%;
+.mobileUserBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
   padding: 1rem;
   border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
+  text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.mobileLoginBtn {
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.mobileUserBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-.mobileLoginBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
+.mobileUserIcon {
+  width: 20px;
+  height: 20px;
 }
 
 .mobileSignupBtn {
   background: linear-gradient(45deg, #646cff, #535bf2);
   color: white;
   border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
 .mobileSignupBtn:hover {
@@ -327,7 +404,7 @@
     display: flex;
   }
 
-  .mobileMenu.active {
+  .mobileMenu {
     display: block;
   }
 
@@ -349,13 +426,6 @@
     box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    
-    background-image: 
-      linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%),
-      linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%) -50px 0,
-      linear-gradient(-45deg, rgba(0,0,0,0.05) 25%, transparent 25%) -50px 0,
-      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.05) 75%),
-      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.05) 75%);
   }
   
   .menuLink {
@@ -370,20 +440,38 @@
     border-color: rgba(0, 0, 0, 0.2);
   }
   
+  .languageButton {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  
+  .languageDropdown {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .languageOption {
+    color: #333;
+  }
+  
+  .languageOption:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  .userIconBtn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  
   .mobileMenu {
     background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    
-    background-image: 
-      linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%),
-      linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%) -50px 0,
-      linear-gradient(-45deg, rgba(0,0,0,0.05) 25%, transparent 25%) -50px 0,
-      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.05) 75%),
-      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.05) 75%);
   }
   
   .mobileLink {
-    color: rgba(0, 0, 0, 0.8);
+    color: #333;
     background: rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
@@ -391,5 +479,11 @@
   .mobileLink:hover {
     color: #000;
     background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .mobileUserBtn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
   }
 }
