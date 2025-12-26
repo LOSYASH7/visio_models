@@ -1,17 +1,13 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Home } from './pages/Home/Home'
-import { AuthPage } from './pages/Auth/AuthPage'
-import { RegisterPage } from './pages/Auth/RegisterPage'
-import { ProfilePage } from './pages/UserPage/Profile' 
-import { About } from './pages/about/about'
-import { Features } from './pages/Features/features'
-import { TitleBar } from './components/titlebar/TitleBar' 
-import './i18n'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AuthPage } from './pages/Auth/AuthPage';
+import { RegisterPage } from './pages/Auth/RegisterPage';
+import { DashboardPage } from './pages/Dashboard/DashboardPage'; 
+import { TitleBar } from './components/titlebar/TitleBar'; 
+import './i18n';
+import './App.css';
 
-// ✅ Правильное объявление с большой буквы Window
 declare global {
   interface Window {
     electronAPI?: {
@@ -20,67 +16,106 @@ declare global {
       maximize: () => Promise<void>;
       close: () => Promise<void>;
       platform: string;
-    };
+    };  
   }
 }
 
+interface User {
+  id: number;
+  email: string;
+  name?: string;
+  [key: string]: any;
+}
+
+interface AuthPageProps {
+  onLogin: (userData: User, token: string) => void;
+}
+
+interface RegisterPageProps {
+  onLogin: (userData: User, token: string) => void;
+}
+
+interface DashboardPageProps {
+  user: User | null;
+  onLogout: () => void; // Добавляем onLogout пропс
+}
+
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+}
+
+interface PublicRouteProps {
+  children: React.ReactNode;
+}
+
 function App() {
-  const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-  const [isElectron, setIsElectron] = useState(false)
-  const { t } = useTranslation('common')
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isElectron, setIsElectron] = useState(false);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
-    const checkElectron = () => {
+    const checkElectron = async () => {
       if (window.electronAPI) {
         setIsElectron(true);
-        window.electronAPI.getAppVersion().then(version => {
+        try {
+          const version = await window.electronAPI.getAppVersion();
           console.log('App version:', version);
-        }).catch(() => {
+        } catch {
           console.log('Running in browser');
-        });
+        }
       }
     };
 
     checkElectron();
     checkAuth();
-  }, [])
+  }, []);
 
-
-  const checkAuth = async () => {
-    const token = localStorage.getItem('authToken')
+  const checkAuth = useCallback(async () => {
+    const token = localStorage.getItem('authToken');
     if (token) {
       try {
-        const userData = JSON.parse(atob(token.split('.')[1]))
-        setUser(userData)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        setUser({
+          id: payload.sub || payload.user_id,
+          email: payload.email || payload.sub,
+          name: payload.name || payload.fio || '',
+          role: payload.role || 'USER',
+          ...payload
+        });
       } catch (error) {
-        console.error('Error decoding token:', error)
-        localStorage.removeItem('authToken')
+        console.error('Error decoding token:', error);
+        localStorage.removeItem('authToken');
       }
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  }, []);
 
-  const login = (userData: any, token: string) => {
-    localStorage.setItem('authToken', token)
-    setUser(userData)
-  }
+  const login = useCallback((userData: User, token: string) => {
+    localStorage.setItem('authToken', token);
+    setUser(userData);
+  }, []);
 
-  const logout = () => {
-    localStorage.removeItem('authToken')
-    setUser(null)
-  }
+  const logout = useCallback(() => {
+    localStorage.removeItem('authToken');
+    setUser(null);
+  }, []);
 
-  const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-    return user ? <>{children}</> : <Navigate to="/auth" replace />
-  }
+  const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+    return user ? <>{children}</> : <Navigate to="/auth" replace />;
+  };
 
-  const PublicRoute = ({ children }: { children: React.ReactNode }) => {
-    return !user ? <>{children}</> : <Navigate to="/profile" replace />
-  }
+  const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
+    return !user ? <>{children}</> : <Navigate to="/dashboard" replace />;
+  };
 
   if (loading) {
-    return <div className="app-loading">{t('loading')}</div>
+    return (
+      <div className="app-loading">
+        <div className="loading-spinner"></div>
+        <div className="loading-text">{t('loading')}</div>
+      </div>
+    );
   }
 
   return (
@@ -90,9 +125,13 @@ function App() {
         
         <div className={isElectron ? 'app-content-with-titlebar' : 'app-content'}>
           <Routes>
-            {/* Исправьте Home component если он не принимает props */}
-            <Route path="/" element={<Home />} />
+            {/* Главная страница - редирект на авторизацию или дашборд */}
+            <Route 
+              path="/" 
+              element={<Navigate to={user ? "/dashboard" : "/auth"} replace />} 
+            />
             
+            {/* Авторизация */}
             <Route 
               path="/auth" 
               element={
@@ -101,6 +140,8 @@ function App() {
                 </PublicRoute>
               } 
             />
+            
+            {/* Регистрация */}
             <Route 
               path="/signup" 
               element={
@@ -110,24 +151,23 @@ function App() {
               } 
             />
 
+            {/* Главный Dashboard со встроенным профилем и YOLO */}
             <Route 
-              path="/profile" 
+              path="/dashboard" 
               element={
                 <ProtectedRoute>
-                  <ProfilePage user={user} onLogout={logout} />
+                  <DashboardPage user={user} onLogout={logout} />
                 </ProtectedRoute>
               } 
             />
 
-            <Route path="/about" element={<About />} />
-            <Route path="/features" element={<Features />} />
-
-            <Route path="*" element={<Navigate to={user ? "/profile" : "/"} replace />} />
+            {/* Все остальные пути - редирект */}
+            <Route path="*" element={<Navigate to={user ? "/dashboard" : "/auth"} replace />} />
           </Routes>
         </div>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

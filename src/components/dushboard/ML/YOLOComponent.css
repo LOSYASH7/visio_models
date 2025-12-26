@@ -1,0 +1,613 @@
+/* YOLOComponent.css - FIXED VERSION */
+
+.yoloContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.yoloHeader {
+  margin-bottom: 2rem;
+  text-align: left;
+  width: 100%;
+}
+
+.yoloTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.yoloSubtitle {
+  color: #666666;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Основной контент с исправленной структурой */
+.yoloContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Верхняя панель управления (горизонтальная) */
+.controlPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1.5rem;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+}
+
+.tabSelector {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.tabButton {
+  padding: 0.875rem 1.5rem;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #666666;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+.tabButton:hover {
+  border-color: #000000;
+  color: #000000;
+}
+
+.tabButton.active {
+  background: #000000;
+  color: white;
+  border-color: #000000;
+}
+
+.tabContent {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.uploadSection, .cameraSection {
+  width: 100%;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.inputLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333333;
+}
+
+.fileInput {
+  padding: 0.875rem;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #000000;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  width: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.fileInput:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.fileInput:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.inputHint {
+  font-size: 0.8rem;
+  color: #999999;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Камера */
+.cameraStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  flex-shrink: 0;
+}
+
+.statusDot.active {
+  background: #00d26a;
+  box-shadow: 0 0 0 4px rgba(0, 210, 106, 0.1);
+}
+
+.statusDot.inactive {
+  background: #ff3b30;
+}
+
+.statusText {
+  font-size: 0.9rem;
+  color: #666666;
+  font-weight: 500;
+}
+
+.cameraHint {
+  font-size: 0.85rem;
+  color: #999999;
+  line-height: 1.5;
+  margin: 0;
+  width: 100%;
+}
+
+/* Кнопка сброса */
+.resetSection {
+  width: 100%;
+}
+
+.resetButton {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #666666;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.resetButton:hover:not(:disabled) {
+  border-color: #000000;
+  color: #000000;
+}
+
+.resetButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Основная область предпросмотра */
+.previewArea {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.canvasWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.previewCanvas {
+  max-width: 100%;
+  max-height: 400px;
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.processingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 10;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f0f0f0;
+  border-top-color: #000000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.processingText {
+  font-size: 0.9rem;
+  color: #666666;
+  font-weight: 500;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  color: #e0e0e0;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.emptyText {
+  font-size: 0.9rem;
+  color: #999999;
+  line-height: 1.5;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+/* Панель результатов */
+.resultsPanel {
+  width: 100%;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.resultsTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.resultsStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: #666666;
+  font-weight: 500;
+}
+
+.statValue {
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 600;
+}
+
+/* Список детекций */
+.detectionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.detectionItem {
+  background: white;
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.detectionItem:hover {
+  border-color: #000000;
+}
+
+.detectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.detectionClass {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000000;
+  text-transform: capitalize;
+}
+
+.detectionConfidence {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #000000;
+  padding: 0.25rem 0.75rem;
+  background: #f0f0f0;
+}
+
+.detectionBar {
+  height: 4px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.detectionFill {
+  height: 100%;
+  background: #000000;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.detectionBbox {
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  color: #666666;
+  letter-spacing: -0.02em;
+  word-break: break-all;
+}
+
+.noDetections {
+  text-align: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.noDetectionsIcon {
+  font-size: 2rem;
+  color: #e0e0e0;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.noDetectionsText {
+  font-size: 0.9rem;
+  color: #999999;
+  line-height: 1.5;
+}
+
+/* Адаптивность */
+@media (min-width: 768px) {
+  .yoloContent {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .controlPanel {
+    width: 300px;
+    flex-shrink: 0;
+  }
+  
+  .previewArea {
+    flex: 1;
+  }
+  
+  .tabSelector {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+  
+  .tabButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .yoloContainer {
+    padding: 1rem;
+  }
+  
+  .yoloTitle {
+    font-size: 1.5rem;
+  }
+  
+  .yoloSubtitle {
+    font-size: 0.9rem;
+  }
+  
+  .controlPanel {
+    padding: 1rem;
+  }
+  
+  .tabSelector {
+    flex-wrap: wrap;
+  }
+  
+  .tabButton {
+    flex: 1;
+    min-width: calc(50% - 0.5rem);
+    text-align: center;
+  }
+  
+  .canvasWrapper {
+    min-height: 300px;
+  }
+  
+  .previewCanvas {
+    max-height: 300px;
+  }
+}
+
+/* Убираем горизонтальный скролл */
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.serverStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.statusDot.online {
+  background: #00d26a;
+  box-shadow: 0 0 0 3px rgba(0, 210, 106, 0.2);
+}
+
+.statusDot.offline {
+  background: #ff3b30;
+  box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.2);
+}
+
+.statusDot.checking {
+  background: #ffcc00;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.statusText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+}
+
+.refreshBtn {
+  background: none;
+  border: 1px solid #e0e0e0;
+  color: #666;
+  width: 36px;
+  height: 36px;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.refreshBtn:hover {
+  border-color: #000;
+  color: #000;
+}
+
+.errorMessage {
+  background: #fff2f2;
+  border: 1px solid #ffcdd2;
+  color: #d32f2f;
+  padding: 0.875rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.streamlitInfo {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.infoText {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.captureBtn {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid #000;
+  background: #000;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.captureBtn:hover:not(:disabled) {
+  background: #333;
+}
+
+.captureBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cameraHint {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.resultsStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}

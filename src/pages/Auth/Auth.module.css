@@ -1,82 +1,55 @@
-/* AuthPage.module.css */
-.authPageWrapper {
+/* Вся страница */
+.page {
   height: 100vh;
   width: 100vw;
   display: flex;
-  background: #ffffff;
-  overflow: hidden;
+  background: #f3f4f6;
 }
 
-.authContainer {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-/* Левая часть - информационный блок */
-.infoSidebar {
+/* Левая половина */
+.left {
   flex: 1;
-  background: #f8f9fa;
-  padding: 3rem;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  border-right: 1px solid #e0e0e0;
-  overflow-y: auto;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #e5e7eb;
+  padding: 3rem;
 }
 
-/* Правая часть - форма авторизации */
-.authContent {
-  flex: 1; /* Изменил с fixed width на flex: 1 */
+/* Правая половина */
+.right {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  padding: 2rem;
-  overflow-y: auto;
+  padding: 3rem;
 }
 
-.authWrapper {
+/* Карточка формы */
+.formCard {
   width: 100%;
-  max-width: 100%; /* Убрал ограничение */
-  padding: 0 2rem;
+  max-width: 420px;
 }
 
-/* Остальные стили остаются такими же... */
-
-.authFooter {
-  margin-top: 1.5rem;
-  text-align: center;
-}
-
-.securityBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: #f8f9fa;
-  border: 1px solid #e0e0e0;
-  color: #666666;
-  font-size: 0.8rem;
-}
-
-/* Адаптивность */
-@media (max-width: 1024px) {
-  .authContainer {
+/* Адаптив */
+@media (max-width: 900px) {
+  .page {
     flex-direction: column;
   }
-  
-  .infoSidebar {
-    flex: none;
-    padding: 2rem;
-    border-right: none;
-    border-bottom: 1px solid #e0e0e0;
-    min-height: 40vh;
+
+  .left,
+  .right {
+    padding: 2rem 1.5rem;
+    height: auto;
   }
-  
-  .authContent {
-    flex: none;
-    padding: 2rem;
-    min-height: 60vh;
+
+  .left {
+    order: 1;
+  }
+
+  .right {
+    order: 2;
   }
 }
