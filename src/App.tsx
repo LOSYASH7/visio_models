@@ -1,12 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AuthPage } from './pages/Auth/AuthPage';
-import { RegisterPage } from './pages/Auth/RegisterPage';
-import { DashboardPage } from './pages/Dashboard/DashboardPage'; 
-import { TitleBar } from './components/titlebar/TitleBar'; 
+import { TitleBar } from './components/titlebar/TitleBar';
 import './i18n';
 import './App.css';
+
+// Lazy loading для страниц
+const AuthPage = lazy(() => import('./pages/Auth/AuthPage'));
+const RegisterPage = lazy(() => import('./pages/Auth/RegisterPage'));
+const DashboardPage = lazy(() => import('./pages/Dashboard/DashboardPage'));
+const DocumentsPage = lazy(() => import('./pages/Document/DocumentsPage'));
+const NewsPage = lazy(() => import('./pages/NewPage/NewPage'));
+const ExternalPage = lazy(() => import('../src/pages/ExternalPage'));
 
 declare global {
   interface Window {
@@ -16,7 +21,7 @@ declare global {
       maximize: () => Promise<void>;
       close: () => Promise<void>;
       platform: string;
-    };  
+    };
   }
 }
 
@@ -25,27 +30,6 @@ interface User {
   email: string;
   name?: string;
   [key: string]: any;
-}
-
-interface AuthPageProps {
-  onLogin: (userData: User, token: string) => void;
-}
-
-interface RegisterPageProps {
-  onLogin: (userData: User, token: string) => void;
-}
-
-interface DashboardPageProps {
-  user: User | null;
-  onLogout: () => void; // Добавляем onLogout пропс
-}
-
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
-
-interface PublicRouteProps {
-  children: React.ReactNode;
 }
 
 function App() {
@@ -66,7 +50,6 @@ function App() {
         }
       }
     };
-
     checkElectron();
     checkAuth();
   }, []);
@@ -101,11 +84,11 @@ function App() {
     setUser(null);
   }, []);
 
-  const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+  const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return user ? <>{children}</> : <Navigate to="/auth" replace />;
   };
 
-  const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
+  const PublicRoute = ({ children }: { children: React.ReactNode }) => {
     return !user ? <>{children}</> : <Navigate to="/dashboard" replace />;
   };
 
@@ -122,48 +105,19 @@ function App() {
     <Router>
       <div className="App">
         {isElectron && <TitleBar />}
-        
         <div className={isElectron ? 'app-content-with-titlebar' : 'app-content'}>
-          <Routes>
-            {/* Главная страница - редирект на авторизацию или дашборд */}
-            <Route 
-              path="/" 
-              element={<Navigate to={user ? "/dashboard" : "/auth"} replace />} 
-            />
-            
-            {/* Авторизация */}
-            <Route 
-              path="/auth" 
-              element={
-                <PublicRoute>
-                  <AuthPage onLogin={login} />
-                </PublicRoute>
-              } 
-            />
-            
-            {/* Регистрация */}
-            <Route 
-              path="/signup" 
-              element={
-                <PublicRoute>
-                  <RegisterPage onLogin={login} />
-                </PublicRoute>
-              } 
-            />
-
-            {/* Главный Dashboard со встроенным профилем и YOLO */}
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <DashboardPage user={user} onLogout={logout} />
-                </ProtectedRoute>
-              } 
-            />
-
-            {/* Все остальные пути - редирект */}
-            <Route path="*" element={<Navigate to={user ? "/dashboard" : "/auth"} replace />} />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Navigate to={user ? "/dashboard" : "/auth"} replace />} />
+              <Route path="/auth" element={<PublicRoute><AuthPage onLogin={login} /></PublicRoute>} />
+              <Route path="/signup" element={<PublicRoute><RegisterPage onLogin={login} /></PublicRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><DashboardPage user={user} onLogout={logout} /></ProtectedRoute>} />
+              <Route path="/documents" element={<ProtectedRoute><DocumentsPage /></ProtectedRoute>} />
+              <Route path="/news" element={<ProtectedRoute><NewsPage /></ProtectedRoute>} />
+              <Route path="/external" element={<ProtectedRoute><ExternalPage /></ProtectedRoute>} />
+              <Route path="*" element={<Navigate to={user ? "/dashboard" : "/auth"} replace />} />
+            </Routes>
+          </Suspense>
         </div>
       </div>
     </Router>

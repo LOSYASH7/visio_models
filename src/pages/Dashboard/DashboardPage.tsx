@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import YOLOComponent from '../../components/dushboard/ML/YOLOComponent';
 import ProfilePage from '../UserPage/Profile';
+import DocumentsPage from '../Document/DocumentsPage'; // 👈 импортируем страницу документов
 import './DashboardPage.css';
 
 interface DashboardPageProps {
@@ -10,14 +11,14 @@ interface DashboardPageProps {
   onLogout: () => void;
 }
 
-type DashboardTab = 'home' | 'yolo' | 'profile' | 'analytics' | 'settings';
+// Добавляем 'documents' в список возможных вкладок
+type DashboardTab = 'home' | 'yolo' | 'profile' | 'analytics' | 'settings' | 'documents';
 
 export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) => {
   const navigate = useNavigate();
   const { t } = useTranslation(['dashboard', 'common']);
   const [activeTab, setActiveTab] = useState<DashboardTab>('home');
 
-  // Рендерим активный контент
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
@@ -27,7 +28,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
             <p className="welcome-text">
               {t('dashboard:home.greeting')}, <strong>{user?.name || user?.email}</strong>!
             </p>
-            
             <div className="quick-stats">
               <div className="stat-card">
                 <h3>📊 {t('dashboard:home.totalProjects')}</h3>
@@ -42,33 +42,23 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
                 <p className="stat-number">4</p>
               </div>
             </div>
-
             <div className="quick-actions">
               <h3>{t('dashboard:home.quickActions')}</h3>
               <div className="action-buttons">
-                <button 
-                  className="action-btn"
-                  onClick={() => setActiveTab('yolo')}
-                >
+                <button className="action-btn" onClick={() => setActiveTab('yolo')}>
                   🚀 {t('dashboard:home.startYOLO')}
                 </button>
-                <button 
-                  className="action-btn"
-                  onClick={() => setActiveTab('profile')}
-                >
+                <button className="action-btn" onClick={() => setActiveTab('profile')}>
                   👤 {t('dashboard:home.editProfile')}
                 </button>
               </div>
             </div>
           </div>
         );
-
       case 'yolo':
         return <YOLOComponent user={user} />;
-
       case 'profile':
         return <ProfilePage user={user} onLogout={onLogout} />;
-
       case 'analytics':
         return (
           <div className="dashboard-content-analytics">
@@ -76,7 +66,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
             <p>{t('dashboard:analytics.comingSoon')}</p>
           </div>
         );
-
       case 'settings':
         return (
           <div className="dashboard-content-settings">
@@ -84,7 +73,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
             <p>{t('dashboard:settings.comingSoon')}</p>
           </div>
         );
-
+      case 'documents': // 👈 новый кейс для документов
+        return <DocumentsPage />;
       default:
         return null;
     }
@@ -92,9 +82,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
 
   return (
     <div className="dashboard-container">
-      {/* Фиксированный сайдбар */}
       <div className="dashboard-sidebar">
-        {/* Заголовок сайдбара */}
         <div className="sidebar-header">
           <h2 className="sidebar-title">🚀 Dashboard</h2>
           <div className="user-info">
@@ -103,41 +91,43 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
           </div>
         </div>
 
-        {/* Навигация */}
         <nav className="sidebar-nav">
-          <button 
+          <button
             className={`nav-item ${activeTab === 'home' ? 'active' : ''}`}
             onClick={() => setActiveTab('home')}
           >
             <span className="nav-icon">🏠</span>
             <span className="nav-text">{t('dashboard:nav.home')}</span>
           </button>
-
-          <button 
+          <button
             className={`nav-item ${activeTab === 'yolo' ? 'active' : ''}`}
             onClick={() => setActiveTab('yolo')}
           >
             <span className="nav-icon">🔍</span>
             <span className="nav-text">{t('dashboard:nav.yolo')}</span>
           </button>
-
-          <button 
+          <button
             className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
             onClick={() => setActiveTab('profile')}
           >
             <span className="nav-icon">👤</span>
             <span className="nav-text">{t('dashboard:nav.profile')}</span>
           </button>
-
-          <button 
+          <button
+            className={`nav-item ${activeTab === 'documents' ? 'active' : ''}`} // 👈 новая кнопка
+            onClick={() => setActiveTab('documents')}
+          >
+            <span className="nav-icon">📄</span>
+            <span className="nav-text">{t('dashboard:nav.documents', 'Документы')}</span>
+          </button>
+          <button
             className={`nav-item ${activeTab === 'analytics' ? 'active' : ''}`}
             onClick={() => setActiveTab('analytics')}
           >
             <span className="nav-icon">📊</span>
             <span className="nav-text">{t('dashboard:nav.analytics')}</span>
           </button>
-
-          <button 
+          <button
             className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`}
             onClick={() => setActiveTab('settings')}
           >
@@ -146,38 +136,27 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ user, onLogout }) 
           </button>
         </nav>
 
-        {/* Выход */}
         <div className="sidebar-footer">
-          <button 
-            className="logout-btn"
-            onClick={onLogout}
-          >
+          <button className="logout-btn" onClick={onLogout}>
             <span className="logout-icon">🚪</span>
             <span className="logout-text">{t('auth:logout')}</span>
           </button>
         </div>
       </div>
 
-      {/* Основной контент (меняется) */}
       <div className="dashboard-main">
-        {/* Шапка контента */}
         <header className="content-header">
           <h1 className="content-title">
             {activeTab === 'home' && t('dashboard:titles.home')}
             {activeTab === 'yolo' && t('dashboard:titles.yolo')}
             {activeTab === 'profile' && t('dashboard:titles.profile')}
+            {activeTab === 'documents' && t('dashboard:titles.documents', 'Документы')}
             {activeTab === 'analytics' && t('dashboard:titles.analytics')}
             {activeTab === 'settings' && t('dashboard:titles.settings')}
           </h1>
-          <div className="content-subtitle">
-            {t('dashboard:subtitle')}
-          </div>
+          <div className="content-subtitle">{t('dashboard:subtitle')}</div>
         </header>
-
-        {/* Контент страницы */}
-        <div className="content-wrapper">
-          {renderContent()}
-        </div>
+        <div className="content-wrapper">{renderContent()}</div>
       </div>
     </div>
   );
